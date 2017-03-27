@@ -1,0 +1,70 @@
+<project name="build" basedir="." default="" >
+	
+	<import file="build.properties" />
+	
+	<property environment="env" />
+	<property name="lib.dir" value="lib" />
+	<property name="src.dir" value="src" />
+	<property name="war.dir" value="wars" />
+	<property name="jar.dir" value="jars" />
+	<property name="ear.dir" value="ears" />
+	<property name="build.dir" value="build/classes" />
+	
+	<path id="project_classpath" >
+		<pathelement path="${env.CLASSPATH}" />
+		<fileset  dir="${lib.dir}" >
+			<include name="*.jar" />
+		</fileset >
+	</path >
+	
+	<tstamp>
+		<format property="today" pattern="yyyyMMddhhmm" locale="en,IND" />
+	</tstamp >
+	
+	<target name="clean" >
+		<delete dir="${build.dir}" />
+	</target >
+	
+	<target name="prepare" >
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${war.dir}" />
+		<mkdir dir="${jar.dir}" />
+		<mkdir dir="${ear.dir}" />
+	</target>
+	
+	<target name="compile" >
+		<javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="project_classpath" />
+		<copy todir="${build.dir}" >
+			<fileset dir="${src.dir}" >
+				<exclude name="**/*.java" />
+			</fileset >
+	</target>
+	
+	<target name="package_wars" >
+		<war basedir="${build.dir}" destfile="${war.dir}/mb_${today}.war" />
+	</target>
+	
+	<target name="package_jars" >
+		<jar basedir="${build.dir}" destfile="${jar.dir}/mb_${today}.jar" />
+	</target>
+	
+	<target name="package_ears" >
+		<ear destfile="${ear.dir}/mb_${today}.ear" appxml="application.xml">
+			<fileset dir="${build.dir}" >
+				<
+	</target>
+	
+	<target name="all" >
+		<antcall target="clean" /> 
+		<antcall target="prepare" />
+		<antcall target="compile" />
+		<antcall target="package_wars" />
+		<antcall target="package_jars" />
+		<antcall target="package_ears" />
+	</target>
+	
+	<target name="test" >
+		< ant antfile="deploy.xml" target="deploy" />
+	</target
+
+</project >
