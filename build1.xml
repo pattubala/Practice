@@ -38,6 +38,7 @@
 			<fileset dir="${src.dir}" >
 				<exclude name="**/*.java" />
 			</fileset >
+		</copy>
 	</target>
 	
 	<target name="package_wars" >
@@ -51,7 +52,8 @@
 	<target name="package_ears" >
 		<ear destfile="${ear.dir}/mb_${today}.ear" appxml="application.xml">
 			<fileset dir="${build.dir}" >
-				<
+				<include name=""/>
+			</fileset>
 	</target>
 	
 	<target name="all" >
