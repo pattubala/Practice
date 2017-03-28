@@ -38,6 +38,7 @@
 			<fileset dir="${src.dir}" >
 				<exclude name="**/*.java" />
 			</fileset >
+		</copy>
 	</target>
 	
 	<target name="package_wars" >
